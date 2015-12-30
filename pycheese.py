@@ -31,13 +31,14 @@ def shellcmd(command):
 
 # process commangline arguments, if any...
 overlay=doubleprint=False
+gutter=True
 for i in sys.argv[1:]:
 	if 'overlay=' in i: overlay = split(i, '=')[1]
 	if ('doubleprint'==i) or ('dp'==i): 
 		doubleprint=True
 		print '\ndoubleprinting...\n'
 	if 'nogutter'==i: gutter=False
-	else: gutter=True
+
 
 
 #============================================================================
