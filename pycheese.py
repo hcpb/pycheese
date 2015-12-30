@@ -12,6 +12,7 @@
 #		- overlay is in script dir, named overlay-hcpb.png	*
 #		- web server and samba share > photobooth directory	*
 #		- can override default overlay image on commandline	*
+#		- can turn on/off gutter text and doubleprint via cl	*
 #									*
 #************************************************************************
 
@@ -35,6 +36,8 @@ for i in sys.argv[1:]:
 	if ('doubleprint'==i) or ('dp'==i): 
 		doubleprint=True
 		print '\ndoubleprinting...\n'
+	if 'nogutter'==i: gutter=False
+	else: gutter=True
 
 
 #============================================================================
@@ -118,10 +121,11 @@ while(cheeserunning):
 	            ' -resize 960x540  '+i+suffix[index]+ ' '+i+strip+' '+i+strip)
 
 	   # add text in gutters...
-	   shellcmd('gm convert -font Courier -pointsize 25 -fill black -draw "text 61,561 file:'+ \
+	   if gutter:
+	     shellcmd('gm convert -font Courier -pointsize 25 -fill black -draw "text 61,561 file:'+ \
 	       i+fourup+'" -draw "text 1190,561 HappyCamperPhotoBooth.com"  -draw "text 1700,561 '+ \
 	       time.strftime("%b-%d-%Y")+'" '+i+fourup+' '+i+fourup)
-	   shellcmd('gm convert -font Courier -pointsize 30 -fill black -draw "text 200,2398 file:'+ \
+	     shellcmd('gm convert -font Courier -pointsize 30 -fill black -draw "text 200,2398 file:'+ \
 	        i+strip+'" -draw "text 240,1219 HappyCamperPhotoBooth.com"  -draw "text 400,1808 ' \
 	        +time.strftime("%b-%d-%Y")+'" '+i+strip+' '+i+strip)
 
